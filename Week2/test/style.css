@@ -1,0 +1,13 @@
+h1{
+    color: brown;
+    font-size: 32px;
+}
+
+.class-test{
+    color: aqua;
+    font-size: 48px;
+}
+
+#id-test{
+    font-size: 32px;
+}

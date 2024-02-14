@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>websocket  test</title>
+    </head>
+
+
+    <body>
+        <p id="socket_data"></p>
+        <script>
+            const socket = new WebSocket("ws://localhost:1880/test");
+
+            socket.addEventListener("open",handleSocketOpen);
+            function handleSocketOpen(){
+                document.body.style.backgroundColor = "white";
+            }
+
+            socket.addEventListener("close",handleSocketClose);
+            function handleSocketClose(){
+                document.body.style.backgroundColor = "black";
+            }
+
+            socket.addEventListener("message",handleSocketMessage);
+
+            function handleSocketMessage(event){
+                document.getElementById("socket_data").innerHTML = event.data;
+            }
+
+            
+
+        </script>
+    </body>
+</html>

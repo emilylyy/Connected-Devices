@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Assignent#3</title>
+</head>
+<body>
+
+    <p id="socket_messages"></p>
+    <script>
+        const socket = new WebSocket("ws://localhost:1880/assignment");
+
+        socket.addEventListener("open",handleSocketOpen);
+
+        function handleSocketOpen(){
+            document.body.style.backgroundColor = "white";
+            socket.addEventListener("message", handleSocketMessage);
+        }
+
+        function handleSocketMessage(e) {
+            const data = parseInt(e.data);
+            const circlesCount = Math.min(data, 100);
+
+            //clear canvas
+            const canvas = document.getElementById('canvas');
+            if (canvas) {
+                canvas.remove();
+            }
+
+            //create new canvas
+            const newCanvas = document.createElement('canvas');
+            newCanvas.id = 'canvas';
+            newCanvas.width = window.innerWidth;
+            newCanvas.height = window.innerHeight;
+            document.body.appendChild(newCanvas);
+
+            const ctx = newCanvas.getContext('2d');
+
+            //create circles
+            for (let i = 0; i < circlesCount; i++) {
+                const x = Math.random() * newCanvas.width;
+                const y = Math.random() * newCanvas.height;
+                const radius = 10;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+
+        socket.addEventListener("close",handleSocketClose);
+        function handleSocketClose(){
+            document.body.style.backgroundColor = "black";
+        }
+
+
+
+    </script>
+</body>
+</html>
